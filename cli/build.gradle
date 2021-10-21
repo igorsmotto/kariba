@@ -1,11 +1,3 @@
-plugins {
-    id "application"
-}
-
-application {
-    mainClass = "org.igorsmotto.kariba.MainKt"
-}
-
 dependencies {
     implementation project(":usecases")
 }
