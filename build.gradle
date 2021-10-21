@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+
+allprojects {
+    apply plugin: "kotlin"
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = "11"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "11"
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+        testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
+        testImplementation "io.mockk:mockk:$mockkVersion"
+    }
+}
+
