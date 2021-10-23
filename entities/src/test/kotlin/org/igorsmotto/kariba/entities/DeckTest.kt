@@ -11,7 +11,7 @@ class DeckTest {
 
     @Test
     fun `when retrieving a deck, it should contain all animals in the same proportion`() {
-        val cards = Deck().shuffle().cards
+        val cards = Deck.shuffle().cards
 
         val countByAnimal = cards.groupingBy { it }.eachCount().values.toSet()
         expectThat(countByAnimal)
@@ -21,7 +21,7 @@ class DeckTest {
     @Test
     @Ignore // Since this test random behavior, it will be a flaky test
     fun `when shuffling a deck, it should shuffle randomly`() {
-        val deck = Deck()
+        val deck = Deck
 
         val shuffledDeck1 = deck.shuffle().cards
         val shuffledDeck2 = deck.shuffle().cards
@@ -30,7 +30,7 @@ class DeckTest {
 
     @Test
     fun `when dealing a card, it should be removed from the deck`() {
-        val deck = Deck().shuffle()
+        val deck = Deck.shuffle()
 
         val (card, remainingDeck) = deal(deck, 1)
 
@@ -41,7 +41,7 @@ class DeckTest {
 
     @Test
     fun `when dealing all cards, the deck should be emptied`() {
-        val deck = Deck().shuffle()
+        val deck = Deck.shuffle()
 
         val (_, remainingDeck) = deal(deck, 64)
 
@@ -50,7 +50,7 @@ class DeckTest {
 
     @Test
     fun `when dealing a cards with the deck empty, it should not deal the card`() {
-        val deck = Deck().shuffle()
+        val deck = Deck.shuffle()
 
         val (_, emptyDeck) = deal(deck, 64)
         val (dealtCards, _) = deal(emptyDeck, 1)

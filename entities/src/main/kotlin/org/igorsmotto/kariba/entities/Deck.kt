@@ -3,21 +3,23 @@ package org.igorsmotto.kariba.entities
 import kotlin.math.max
 
 @JvmInline
-value class Hand(private val cards: List<Card>) {
+value class Hand(val cards: List<Card>) {
     init {
-        require(cards.size == 5)
+        require(cards.size <= 5)
     }
 }
 
-private const val MAX_CARDS = 64
-class Deck {
-    private val cards = (1..MAX_CARDS / Card.values().size).map { Card.values().toList() }.flatten()
+private const val MAX_CARDS = 12
+
+object Deck {
+    private val cards = List(MAX_CARDS / Card.values().size + 1) { Card.values().toList() }.flatten().take(MAX_CARDS)
 
     fun shuffle(): ShuffledDeck = ShuffledDeck(cards.shuffled())
 }
 
-@JvmInline
-value class ShuffledDeck(val cards: List<Card>)
+data class ShuffledDeck(val cards: List<Card>) {
+    val size = cards.size
+}
 
 fun deal(shuffledDeck: ShuffledDeck, numberOfCards: Int): Pair<List<Card>, ShuffledDeck> {
     val cards = shuffledDeck.cards

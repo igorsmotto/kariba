@@ -24,6 +24,10 @@ sealed class Card(
         }
     }
 
+    override fun toString(): String {
+        return name
+    }
+
     companion object {
         fun values(): List<Card> {
             return Card::class.sealedSubclasses.map { it.objectInstance as Card }
