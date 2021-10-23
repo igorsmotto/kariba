@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(":usecases")
+
+    /* I'm bypassing the boundary of the architecture by importing the entities module
+     * I'm probably cutting corners
+     * I should be careful when using those entities in the repository module
+    */
+    implementation project(":entities")
+
+
+}

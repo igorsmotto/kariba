@@ -43,6 +43,7 @@ dependencies {
     implementation project(":entities")
     implementation project(":usecases")
     implementation project(":cli")
+    implementation project(":repositories")
 }
 
 application {
