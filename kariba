@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./gradlew --quiet "installDist" > /dev/null
+./build/install/kariba/bin/kariba "$@"

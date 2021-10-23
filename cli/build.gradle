@@ -1,3 +1,5 @@
 dependencies {
     implementation project(":usecases")
+    implementation "com.github.ajalt.clikt:clikt:$cliktVersion"
+
 }

@@ -8,6 +8,9 @@ buildscript {
     }
 }
 
+plugins {
+    id "application"
+}
 
 allprojects {
     apply plugin: "kotlin"
@@ -28,6 +31,20 @@ allprojects {
 
         testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
         testImplementation "io.mockk:mockk:$mockkVersion"
+        testImplementation "io.strikt:strikt-core:$striktVersion"
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }
 
+dependencies {
+    implementation project(":entities")
+    implementation project(":usecases")
+    implementation project(":cli")
+}
+
+application {
+    mainClass.set("org.igorsmotto.kariba.MainKt")
+}
