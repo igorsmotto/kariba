@@ -27,8 +27,8 @@ When there are no more cards in play. Whoever has the most points wins.
 
 --- 
 ## Prerequisites
-- JDK 11+: [Linux](https://tecadmin.net/install-openjdk-java-ubuntu/)
-- Kotlin 1.3.50: [Install](https://medium.com/@sushanthande1/install-kotlin-on-linux-ubuntu-1a3f97dffa40)
+- JDK 11+
+- Kotlin 1.5.31
 
 ## Technologies
 - Gradle
@@ -47,8 +47,9 @@ Based on Clean Architecture: [Reference](https://www.freecodecamp.org/news/a-qui
 - cli:
     - Application entrypoint
     - Receives and responds to command from terminal
-- main
+- root
     - main component
+    - wires everything together
     - Dependency Injection (No framework used)
 
 ---
