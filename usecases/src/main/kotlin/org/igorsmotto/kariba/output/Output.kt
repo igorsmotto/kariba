@@ -17,9 +17,10 @@ data class LakeState(
 
 data class PlayerState(
     val name: String,
-    val hand: Hand,
+    val hand: List<String>,
     val points: Int = 0
 )
 
 fun Lake.toLakeState() = LakeState(water)
-fun Player.toPlayerState() = PlayerState(name, hand, points)
+fun Player.toPlayerState() = PlayerState(name, hand.cards.map { it.name }, points, order)
+fun PlayerState.toPlayer() = Player(name, Hand(hand.map { Card.valueOf(it) }), points)

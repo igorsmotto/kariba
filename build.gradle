@@ -40,10 +40,9 @@ allprojects {
 }
 
 dependencies {
-    implementation project(":entities")
+    implementation project(":domain")
     implementation project(":usecases")
     implementation project(":cli")
-    implementation project(":repositories")
 }
 
 application {

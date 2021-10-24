@@ -1,12 +1,9 @@
 package org.igorsmotto.kariba.input
 
-import org.igorsmotto.kariba.entities.Card
-
 @JvmInline
 value class PlayerName(val name: String)
 
-fun String.toCard(): Card? {
-    return Card.values().find {
-        it.name == this
-    }
-}
+data class Play(
+    val card: String,
+    val quantity: Int = 1
+)
