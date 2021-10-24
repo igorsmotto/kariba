@@ -11,4 +11,8 @@ enum class Card(
   JAGUAR(6),
   RHINO(7),
   ELEPHANT(8);
+
+  override fun toString(): String {
+    return super.toString().lowercase()
+  }
 }

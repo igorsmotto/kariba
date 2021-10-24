@@ -3,8 +3,11 @@ package org.igorsmotto.kariba.entities
 import org.igorsmotto.kariba.entities.Fixture.aPlayer
 import org.junit.jupiter.api.assertThrows
 import strikt.api.expectThat
+import strikt.assertions.contains
+import strikt.assertions.doesNotContain
 import strikt.assertions.isEqualTo
 import strikt.assertions.isFalse
+import strikt.assertions.isNotEqualTo
 import strikt.assertions.isTrue
 import java.util.UUID
 import kotlin.test.Test
@@ -97,6 +100,86 @@ class GameTest {
     val nextPlayer = aGame.nextPlayerToPlay(lastPlayer.positionOnTable)
 
     expectThat(nextPlayer).isEqualTo(firstPlayer)
+  }
+
+  @Test
+  fun `A finished game shouldn't have a next player`() {
+    val aFinishedGame = Game(
+      Deck(0).shuffle(), listOf(
+        aPlayer().copy(hand = emptyList(), positionOnTable = 0),
+        aPlayer().copy(hand = emptyList(), positionOnTable = 1)
+      ),
+      Lake()
+    )
+
+
+    assertThrows<IllegalStateException> {
+      aFinishedGame.nextPlayerToPlay(0)
+    }
+  }
+
+  @Test
+  fun `If the next player to play doesn't have cards it should search for the next one`() {
+    val firstPlayer = aPlayer().copy(positionOnTable = 0, hand = emptyList())
+    val secondPlayer = aPlayer().copy(positionOnTable = 1, hand = emptyList())
+    val thirdPlayer = aPlayer().copy(positionOnTable = 2)
+    val aGame = Game(
+      Deck(30).shuffle(), listOf(
+        firstPlayer,
+        secondPlayer,
+        thirdPlayer
+      ),
+      Lake()
+    )
+
+    val nextPlayer = aGame.nextPlayerToPlay(thirdPlayer.positionOnTable)
+
+    expectThat(nextPlayer).isEqualTo(thirdPlayer)
+  }
+
+  @Test
+  fun `The first player of a game is the player with position 0`() {
+    val firstPlayer = aPlayer().copy(positionOnTable = 0)
+    val lastPlayer = aPlayer().copy(positionOnTable = 1)
+    val aGame = Game(
+      Deck(30).shuffle(), listOf(
+        firstPlayer,
+        lastPlayer
+      ),
+      Lake()
+    )
+
+    expectThat(aGame.firstPlayer()).isEqualTo(firstPlayer)
+  }
+
+  @Test
+  fun `When a play is made, it should be placed on the lake and a new card dealt`() {
+    val firstPlayer = aPlayer().copy(
+      positionOnTable = 0,
+      hand = listOf(Card.WEASEL, Card.WEASEL, Card.RHINO, Card.ELEPHANT)
+    )
+    val lastPlayer = aPlayer().copy(positionOnTable = 1)
+    val aGame = Game(
+      Deck(30).shuffle(), listOf(
+        firstPlayer,
+        lastPlayer
+      ),
+      Lake()
+    )
+    val aPlay = Play(Card.WEASEL, 2, firstPlayer)
+
+    val result = aGame.nextGame(aPlay)
+
+    expectThat(result) {
+      get { deck.size }.isEqualTo(28)
+      get { lake.water[Card.WEASEL.value]!!.size }.isNotEqualTo(0)
+      get { result.players.first { it.name == firstPlayer.name }.hand }
+        .and {
+          get { size }.isEqualTo(4)
+          contains(Card.RHINO, Card.ELEPHANT)
+          doesNotContain(Card.WEASEL, Card.WEASEL)
+        }
+    }
   }
 }
 
