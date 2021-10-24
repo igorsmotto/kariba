@@ -23,4 +23,3 @@ data class PlayerState(
 
 fun Lake.toLakeState() = LakeState(water)
 fun Player.toPlayerState() = PlayerState(name, hand, points)
-

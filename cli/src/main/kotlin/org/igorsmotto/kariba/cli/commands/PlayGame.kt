@@ -23,13 +23,14 @@ class PlayGame(
 
         gameState.fold(
             onSuccess = {
-                echo(it)
+//                echo(it)
             },
             onFailure = {
                 echo(it.message)
             }
         )
 
-        GameLoop(CLIInterface, gameRepository).execute()
+        val winner = GameLoop(CLIInterface, gameRepository).execute()
+        echo("Congrats ${winner.name} on winning!!!")
     }
 }

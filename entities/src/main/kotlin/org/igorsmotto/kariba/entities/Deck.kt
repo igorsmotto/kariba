@@ -9,7 +9,7 @@ value class Hand(val cards: List<Card>) {
     }
 }
 
-private const val MAX_CARDS = 12
+private const val MAX_CARDS = 64
 
 object Deck {
     private val cards = List(MAX_CARDS / Card.values().size + 1) { Card.values().toList() }.flatten().take(MAX_CARDS)
