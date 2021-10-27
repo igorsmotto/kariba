@@ -17,6 +17,6 @@ data class Play(
   val player: Player
 ) {
   fun isValid(): Boolean {
-    return player.hand.count { it == card } >= times
+    return player.hand.count { it == card } >= times && times > 0
   }
 }

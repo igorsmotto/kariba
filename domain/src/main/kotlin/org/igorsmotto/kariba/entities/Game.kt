@@ -39,10 +39,11 @@ data class Game(
 
     val (updatedLake, removedCards) = lake.placeCards(cardsPlayed)
     val (cardsDealt, updatedDeck) = deck.deal(play.times)
+    val newHand = cardsPlayed.fold(play.player.hand) { hand, card -> hand.minus(card) } + cardsDealt
 
     val updatedPlayer = play.player.copy(
-      points = play.player.points + removedCards, //TODO("Do test")
-      hand = play.player.hand - cardsPlayed + cardsDealt
+      points = play.player.points + removedCards,
+      hand = newHand
     )
 
     return Game(

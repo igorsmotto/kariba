@@ -13,7 +13,9 @@ abstract class UserInterface {
   abstract fun promptUserForCard(playerState: PlayerState): String
 
   fun promptPlay(player: Player, validatePlay: (Play) -> Boolean): Play {
-    val cardSelected = promptUserForCard(player.toPlayerState()).let { Card.valueOf(it.uppercase()) }
+    val cardSelected = promptUserForCard(player.toPlayerState()).let { Card.toCard(it)  }
+      ?: return promptPlay(player, validatePlay)
+
     val maxQuantity = player.repeatedCard(cardSelected)
     val times = if (maxQuantity > 1) {
       promptUserForQuantity(cardSelected.toString(), maxQuantity)

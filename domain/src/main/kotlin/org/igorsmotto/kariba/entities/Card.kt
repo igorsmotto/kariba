@@ -15,4 +15,10 @@ enum class Card(
   override fun toString(): String {
     return super.toString().lowercase()
   }
+
+  companion object {
+    fun toCard(str: String): Card? {
+      return runCatching { valueOf(str.uppercase()) }.getOrNull()
+    }
+  }
 }
