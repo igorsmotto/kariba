@@ -3,7 +3,7 @@ Africa is hot and water is scarce.
 The animals want to find a waterhole where they can refresh themselves. 
 Of course, every animal wants to be the first to drink and so the elephant chases away the rhino, and the rhino chases away the mouse. 
 But it is well known that elephants are afraid of mice. 
-Therefore, the little mouse chases away the elephant.
+Therefore, the little mouse chases away the ELEPHANT.
 --- 
 # Game
 
